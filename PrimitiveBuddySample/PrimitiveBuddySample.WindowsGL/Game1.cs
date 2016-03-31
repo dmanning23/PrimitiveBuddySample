@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PrimitiveBuddy;
 
 namespace PrimitiveBuddySample.WindowsGL
 {
@@ -11,11 +12,14 @@ namespace PrimitiveBuddySample.WindowsGL
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
+		Primitive _prim;
+		KeyboardState _keys;
 
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
+			_keys = new KeyboardState();
 		}
 
 		/// <summary>
@@ -29,6 +33,8 @@ namespace PrimitiveBuddySample.WindowsGL
 			// TODO: Add your initialization logic here
 
 			base.Initialize();
+			_prim = new Primitive(graphics.GraphicsDevice, spriteBatch);
+			_prim.NumCircleSegments = 3;
 		}
 
 		/// <summary>
@@ -62,7 +68,16 @@ namespace PrimitiveBuddySample.WindowsGL
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-			// TODO: Add your update logic here
+			var curKeys = Keyboard.GetState();
+			if (_keys.IsKeyUp(Keys.A) && curKeys.IsKeyDown(Keys.A))
+			{
+				_prim.NumCircleSegments = _prim.NumCircleSegments + 1;
+			}
+			else if (_keys.IsKeyUp(Keys.S) && curKeys.IsKeyDown(Keys.S))
+			{
+				_prim.NumCircleSegments = _prim.NumCircleSegments - 1;
+			}
+			_keys = curKeys;
 
 			base.Update(gameTime);
 		}
@@ -75,7 +90,12 @@ namespace PrimitiveBuddySample.WindowsGL
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			// TODO: Add your drawing code here
+			spriteBatch.Begin();
+
+			_prim.Circle(new Vector2(128f, 128f), 64f, Color.White);
+			_prim.Pie(new Vector2(256f, 256f), 64f, MathHelper.PiOver2, MathHelper.PiOver2, Color.White);
+
+			spriteBatch.End();
 
 			base.Draw(gameTime);
 		}
