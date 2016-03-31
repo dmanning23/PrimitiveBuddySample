@@ -1,0 +1,3 @@
+[submodule "externalsBasicPrimitiveBuddy"]
+	path = externalsBasicPrimitiveBuddy
+	url = git@github.com:dmanning23/BasicPrimitiveBuddy.git
