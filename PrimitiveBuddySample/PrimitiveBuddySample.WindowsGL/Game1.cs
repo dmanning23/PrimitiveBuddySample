@@ -14,6 +14,7 @@ namespace PrimitiveBuddySample.WindowsGL
 		SpriteBatch spriteBatch;
 		Primitive _prim;
 		KeyboardState _keys;
+		float step = 200f;
 
 		public Game1()
 		{
@@ -94,6 +95,18 @@ namespace PrimitiveBuddySample.WindowsGL
 
 			_prim.Circle(new Vector2(128f, 128f), 64f, Color.White);
 			_prim.Pie(new Vector2(256f, 256f), 64f, MathHelper.PiOver2, MathHelper.PiOver2, Color.White);
+
+			_prim.SineWave(new Vector2(300, 200), new Vector2(500, 200), 20f, 30f, Color.White);
+			_prim.SineWave(new Vector2(300, 300), new Vector2(400, 400), 20f, 30f, Color.Red);
+			_prim.SineWave(new Vector2(300, 400), new Vector2(400, 550), 20f, 30f, Color.White);
+			_prim.SineWave(new Vector2(200, 400), new Vector2(300, 300), 20f, 30f, Color.Green);
+
+			_prim.SineWave(new Vector2(step, 100), new Vector2(200, 100), 20f, 30f, Color.Green);
+			step += 2f;
+			if (step >= 1000)
+			{
+				step = 200f;
+			}
 
 			spriteBatch.End();
 
