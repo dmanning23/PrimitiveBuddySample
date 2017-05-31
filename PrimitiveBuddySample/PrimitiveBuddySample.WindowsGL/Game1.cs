@@ -13,6 +13,7 @@ namespace PrimitiveBuddySample.WindowsGL
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		Primitive _prim;
+		Primitive _ropePrim;
 		KeyboardState _keys;
 		float step = 200f;
 
@@ -48,6 +49,9 @@ namespace PrimitiveBuddySample.WindowsGL
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			// TODO: use this.Content to load your game content here
+			var rope = Content.Load<Texture2D>("rope");
+			_ropePrim = new Primitive(rope, spriteBatch);
+			_ropePrim.Thickness = 1;
 		}
 
 		/// <summary>
@@ -56,7 +60,11 @@ namespace PrimitiveBuddySample.WindowsGL
 		/// </summary>
 		protected override void UnloadContent()
 		{
-			// TODO: Unload any non ContentManager content here
+			if (null != _prim)
+			{
+				_prim.Dispose();
+				_prim = null;
+			}
 		}
 
 		/// <summary>
@@ -101,7 +109,11 @@ namespace PrimitiveBuddySample.WindowsGL
 			_prim.SineWave(new Vector2(300, 400), new Vector2(400, 550), 20f, 30f, Color.White);
 			_prim.SineWave(new Vector2(200, 400), new Vector2(300, 300), 20f, 30f, Color.Green);
 
-			_prim.SineWave(new Vector2(step, 100), new Vector2(200, 100), 20f, 30f, Color.Green);
+			spriteBatch.End();
+
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearWrap);
+
+			_ropePrim.SineWave(new Vector2(step, 100), new Vector2(200, 100), 20f, 30f, Color.White);
 			step += 2f;
 			if (step >= 1000)
 			{
