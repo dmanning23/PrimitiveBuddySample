@@ -35,8 +35,8 @@ namespace PrimitiveBuddySample.WindowsGL
 			// TODO: Add your initialization logic here
 
 			base.Initialize();
-			_prim = new Primitive(graphics.GraphicsDevice, spriteBatch);
-			_prim.NumCircleSegments = 3;
+			//_prim = new Primitive(graphics.GraphicsDevice, spriteBatch);
+			//_prim.NumCircleSegments = 3;
 		}
 
 		/// <summary>
@@ -50,8 +50,13 @@ namespace PrimitiveBuddySample.WindowsGL
 
 			// TODO: use this.Content to load your game content here
 			var rope = Content.Load<Texture2D>("rope");
+			//_ropePrim = new Primitive(graphics.GraphicsDevice, spriteBatch);
 			_ropePrim = new Primitive(rope, spriteBatch);
-			_ropePrim.Thickness = 1;
+			_ropePrim.Thickness = 6;
+
+			_prim = new Primitive(graphics.GraphicsDevice, spriteBatch);
+			//_prim = new Primitive(rope, spriteBatch);
+			_prim.Thickness = 6;
 		}
 
 		/// <summary>
@@ -104,10 +109,12 @@ namespace PrimitiveBuddySample.WindowsGL
 			_prim.Circle(new Vector2(128f, 128f), 64f, Color.White);
 			_prim.Pie(new Vector2(256f, 256f), 64f, MathHelper.PiOver2, MathHelper.PiOver2, Color.White);
 
-			_prim.SineWave(new Vector2(300, 200), new Vector2(500, 200), 20f, 30f, Color.White);
+			_prim.Line(new Vector2(300, 200), new Vector2(500, 200), Color.White);
 			_prim.SineWave(new Vector2(300, 300), new Vector2(400, 400), 20f, 30f, Color.Red);
 			_prim.SineWave(new Vector2(300, 400), new Vector2(400, 550), 20f, 30f, Color.White);
 			_prim.SineWave(new Vector2(200, 400), new Vector2(300, 300), 20f, 30f, Color.Green);
+
+			_prim.Rectangle(new Rectangle(64, 64, 128, 128), Color.Black);
 
 			spriteBatch.End();
 
